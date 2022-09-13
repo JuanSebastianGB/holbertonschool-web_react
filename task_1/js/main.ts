@@ -38,3 +38,21 @@ interface TeacherToPrint{
 const printTeacher = (teacher: TeacherToPrint): string => {
   `${firstName[0]. ${lastName}}`;
 };
+
+interface StudentClass{
+  firstName: string;
+  lastName: string;
+}
+
+class StudentClass{
+  firstName: string;
+  lastName: string;
+  constructor(firstName: string, lastName: string){
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+  public displayName = () => this.firstName;
+
+  public workOnHomework= ()=> 'Currently working';
+
+}
