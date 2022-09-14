@@ -51,3 +51,15 @@ var executeWork = function (employee) {
 };
 executeWork(createEmployee(200));
 executeWork(createEmployee(1000));
+/**
+ * Teach class takes a subject and returns a string.
+ * @param {Subjects} todayClass - Subjects
+ * @returns A string
+ */
+var teachClass = function (todayClass) {
+    if (todayClass === 'Math')
+        return 'Teaching Math';
+    else if (todayClass === 'History')
+        return 'Teaching History';
+};
+teachClass('Math');
