@@ -30,29 +30,28 @@ const director1: Directors = {
 };
 console.log(director1);
 
-interface TeacherToPrint{
+interface TeacherToPrint {
   firstName: string;
   lastName: string;
 }
 
 const printTeacher = (teacher: TeacherToPrint): string => {
-  `${firstName[0]. ${lastName}}`;
+  return `${teacher.firstName[0]}. ${teacher.lastName}}`;
 };
 
-interface StudentClass{
+interface StudentClass {
   firstName: string;
   lastName: string;
 }
 
-class StudentClass{
+class StudentClass {
   firstName: string;
   lastName: string;
-  constructor(firstName: string, lastName: string){
+  constructor(firstName: string, lastName: string) {
     this.firstName = firstName;
     this.lastName = lastName;
   }
   public displayName = () => this.firstName;
 
-  public workOnHomework= ()=> 'Currently working';
-
+  public workOnHomework = () => 'Currently working';
 }
