@@ -4,7 +4,7 @@ namespace Subjects {
   interface Teacher {
     experienceTeachingJava?: number;
   }
-  export class React {
+  export class Java {
     getRequirements = (): string => 'Here is the list of requirements for Java';
     getAvailableTeacher = (): string => {
       const { firstName, experienceTeachingJava } = this.teacher;
