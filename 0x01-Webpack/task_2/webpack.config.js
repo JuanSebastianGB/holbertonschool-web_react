@@ -2,12 +2,16 @@ const path = require('path');
 const { resolve } = path;
 
 module.exports = {
-  entry: './js/dashboard_main.js',
-  output: {
-    path: resolve(__dirname, 'public'),
-    filename: 'bundle.js',
-  },
   mode: 'production',
+  entry: './js/dashboard_main.js',
+  performance: {
+    maxAssetSize: 1000000,
+    maxEntrypointSize: 1000000,
+  },
+  output: {
+    filename: 'bundle.js',
+    path: resolve(__dirname, 'public'),
+  },
   module: {
     rules: [
       {
@@ -15,7 +19,7 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        test: /\.(png|jpe?g|gif)$/i,
         use: [
           'file-loader',
           {
@@ -28,9 +32,5 @@ module.exports = {
         ],
       },
     ],
-  },
-  performance: {
-    maxAssetSize: 1000000,
-    maxEntrypointSize: 1000000,
   },
 };
