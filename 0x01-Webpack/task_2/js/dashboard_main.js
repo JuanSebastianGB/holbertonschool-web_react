@@ -17,7 +17,7 @@ $(() => {
   $('body').append('<div id="logo"></div>');
   $('body').append('<p>Holberton Dashboard</p>');
   $('body').append('<p>Dashboard data for the students</p>');
-  $('body').append('<button><div>Click here to get started</div></button>');
+  $('body').append('<button>Click here to get started</button>');
   $('body').append('<p id="count">Dashboard data for the students</p>');
   $('body').append('<p>Copyright - Holberton School</p>');
 
