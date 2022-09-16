@@ -1,9 +1,6 @@
-button {
-  text-align: right;
-}
-
-button div {
-  font-weight: 700;
+#count {
+  display    : inline;
+  font-weight: bold;
 }
 
 #logo {
@@ -11,5 +8,5 @@ button div {
   height             : 200px;
   background         : url('../assets/holberton-logo.jpg');
   background-position: center;
-  background-size    : cover;
+  background-size    : 200px 200px;
 }
