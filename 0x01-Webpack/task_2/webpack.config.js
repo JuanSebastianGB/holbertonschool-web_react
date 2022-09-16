@@ -15,11 +15,12 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
       {
-        test: /\.jpg$/,
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
         use: {
           loader: 'file-loader',
         },
       },
     ],
   },
+  performance: { hints: false },
 };

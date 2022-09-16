@@ -1,4 +1,15 @@
-#count {
-  text-align : right;
+button {
+  text-align: right;
+}
+
+button div {
   font-weight: 700;
+}
+
+#logo {
+  width              : 200px;
+  height             : 200px;
+  background         : url('../assets/holberton-logo.jpg');
+  background-position: center;
+  background-size    : cover;
 }
