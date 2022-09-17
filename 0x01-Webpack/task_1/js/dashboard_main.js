@@ -9,7 +9,7 @@ const updateCounter = () => (count += 1);
 /* A function that is called when the button is clicked. */
 const updateState = _.debounce(() => {
   $('#count').text(`${updateCounter()} clicks on the button`);
-});
+}, 500);
 
 $(() => {
   $('body').append('<p>Holberton Dashboard</p>');
