@@ -385,7 +385,8 @@ template {
 }
 
 :root {
-  --main-color: #e0374c
+  --main-color     : #e0374c;
+  --gray-thin-color: #ececec
 }
 
 .App {
@@ -414,11 +415,11 @@ template {
 }
 
 .App-body {
-  height: 50vh;
+  height : 50vh;
+  padding: 3rem;
 }
 
 .App-body>p {
-  padding    : 2.5rem;
   font-weight: 500;
 }
 
@@ -429,4 +430,17 @@ template {
 .App-footer>p {
   text-align: center;
   font-style: italic
+}
+
+.App-body input {
+  margin       : 0 1rem;
+  border       : thin solid var(--gray-thin-color);
+  border-radius: 2px;
+  padding      : 0.2rem;
+}
+
+.App-body button {
+  border       : thin solid var(--gray-thin-color);
+  cursor       : pointer;
+  border-radius: 2px;
 }
