@@ -1,7 +1,8 @@
 {
+  "name": "dashboard",
   "scripts": {
     "build": "webpack --mode production --entry src/index.js -o dist/bundle.js",
-    "dev": "webpack-dev-server --mode development --entry src/index.js -o dist/bundle.js"
+    "dev": "webpack serve --mode development --config config/webpack.config.js"
   },
   "devDependencies": {
     "webpack": "^5.74.0",
