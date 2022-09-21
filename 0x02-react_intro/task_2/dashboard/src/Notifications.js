@@ -1,6 +1,7 @@
 import React from 'react';
 import './Notifications.css';
-import close from './close.png';
+import close from './close-icon.png';
+import { getLatestNotification } from './utils';
 
 const buttonStyles = {
   display: 'inline',
@@ -9,18 +10,30 @@ const buttonStyles = {
   top: '0.3rem',
   background: 'none',
   border: 'none',
-  width: '1rem',
-  height: '1rem',
+};
+
+const imgStyles = {
+  width: '20px',
+  height: '20px',
 };
 
 const handleClick = () => console.log('Close button has been clicked');
-
 const Notifications = () => {
   return (
     <div className="Notifications">
-      Here is the list of notifications
+      <p>Here is the list of notifications</p>
+      <ul>
+        <li data-priority="default">New course available</li>
+        <li data-priority="urgent">New resume available</li>
+        <li
+          data-priority="urgent"
+          dangerouslySetInnerHTML={{
+            __html: `${getLatestNotification()}`,
+          }}
+        ></li>
+      </ul>
       <button onClick={handleClick} style={buttonStyles} aria-label="close">
-        <img src={close} alt="close" />
+        <img style={imgStyles} src={close} alt="close" />
       </button>
     </div>
   );
