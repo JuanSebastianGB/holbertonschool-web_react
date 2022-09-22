@@ -3,8 +3,8 @@
  * @returns The current year.
  */
 export const getFullYear = () => {
-  const { getFullYear } = new Date();
-  return getFullYear();
+  const date = new Date();
+  return date.getFullYear();
 };
 
 /**
