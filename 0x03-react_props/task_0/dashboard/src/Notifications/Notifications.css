@@ -1,0 +1,15 @@
+.Notifications {
+  border      : dotted thin var(--main-color);
+  /* padding  : 2rem; */
+  position    : relative;
+  max-width   : 1000px;
+  margin      : 5rem auto 0;
+}
+
+li[data-priority='default'] {
+  color: blue
+}
+
+li[data-priority='urgent'] {
+  color: red
+}
