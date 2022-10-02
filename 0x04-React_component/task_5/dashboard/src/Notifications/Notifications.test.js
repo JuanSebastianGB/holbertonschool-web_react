@@ -5,6 +5,7 @@ import NotificationItem from './NotificationItem';
 import { getLatestNotification } from '../utils/utils';
 
 let wrapper;
+
 const listNotifications = [
   {
     id: 1,
@@ -22,6 +23,16 @@ const listNotifications = [
     html: { __html: getLatestNotification() },
   },
 ];
+
+const changedListNotifications = listNotifications.map((notification) => {
+  if (notification.id === 3) return { ...notification, type: 'default' };
+  return { ...notification };
+});
+changedListNotifications.push({
+  id: 4,
+  type: 'default',
+  value: 'test data',
+});
 
 describe('<Notifications/> render', () => {
   beforeEach(() => {
@@ -101,5 +112,42 @@ describe('Testing markAsRead', () => {
     ).toBe(true);
     logSpy.restore();
     done();
+  });
+});
+
+describe('', () => {
+  it('should verify that when updating the props of the component with the same list, the component doesn’t rerender', () => {
+    const wrapper = shallow(
+      <Notifications
+        displayDrawer={true}
+        listNotifications={listNotifications}
+      />
+    );
+    const spyFunction = jest.spyOn(
+      Notifications.prototype,
+      'shouldComponentUpdate'
+    );
+
+    wrapper.setProps({ listNotifications });
+    expect(spyFunction).toHaveBeenCalled();
+    expect(spyFunction).toHaveBeenCalledTimes(1);
+    expect(spyFunction).toHaveLastReturnedWith(false);
+  });
+  it('should verify that when updating the props of the component with a longer list, the component does rerender', () => {
+    const wrapper = shallow(
+      <Notifications
+        displayDrawer={true}
+        listNotifications={listNotifications}
+      />
+    );
+    const spyFunction = jest.spyOn(
+      Notifications.prototype,
+      'shouldComponentUpdate'
+    );
+    wrapper.setProps({ listNotifications: changedListNotifications });
+
+    expect(spyFunction).toHaveBeenCalled();
+    expect(spyFunction).toHaveBeenCalledTimes(2);
+    expect(spyFunction).toHaveLastReturnedWith(true);
   });
 });
