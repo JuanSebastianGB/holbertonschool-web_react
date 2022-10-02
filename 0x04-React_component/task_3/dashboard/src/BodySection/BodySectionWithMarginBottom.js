@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import './BodySection.css';
 
 const BodySectionWithMarginBottom = (props) => {
-  children;
   return (
     <div className="bodySectionWithMargin">
       <BodySection {...props} />
