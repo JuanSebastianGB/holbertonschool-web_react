@@ -31,6 +31,9 @@ class Notifications extends Component {
   markAsRead = (id) =>
     console.log(`Notification ${id} has been marked as read`);
 
+  shouldComponentUpdate = (nextProps) =>
+    nextProps.listNotifications !== this.props.listNotifications;
+
   render() {
     const { displayDrawer, listNotifications } = this.props;
     return (
