@@ -14,6 +14,7 @@ import PropTypes from 'prop-types';
 import CourseList from '../CourseList/CourseList';
 import BodySection from '../BodySection/BodySection';
 import { listCourses, listNotifications } from './data';
+import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom';
 
 class App extends React.Component {
   constructor(props) {
@@ -46,7 +47,26 @@ class App extends React.Component {
           <Notifications listNotifications={listNotifications} />
           <div className="App">
             <Header />
-            {isLoggedIn ? <CourseList listCourses={listCourses} /> : <Login />}
+            {isLoggedIn ? (
+              <BodySectionWithMarginBottom title="BodySectionWithMarginBottom">
+                <CourseList listCourses={listCourses} />
+              </BodySectionWithMarginBottom>
+            ) : (
+              <BodySectionWithMarginBottom>
+                <Login title="Log in to continue" />
+              </BodySectionWithMarginBottom>
+            )}
+            <BodySection title="News from the School">
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi
+                commodi optio eos totam nihil vitae ad, a inventore debitis est
+                corporis iusto cumque distinctio quae delectus libero molestiae
+                asperiores reprehenderit atque enim magnam? Repudiandae
+                perspiciatis amet recusandae nulla ut eius? Cum deleniti
+                explicabo repellat corporis. Laboriosam culpa delectus beatae
+                iusto.
+              </p>
+            </BodySection>
             <Footer />
           </div>
         </div>

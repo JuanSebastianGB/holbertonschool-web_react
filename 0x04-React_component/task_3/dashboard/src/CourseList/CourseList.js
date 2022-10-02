@@ -2,9 +2,9 @@ import React from 'react';
 import CourseListRow from './CourseListRow';
 import './CourseList.css';
 import { CourseShape } from './CourseShape';
-import  PropTypes  from 'prop-types';
+import PropTypes from 'prop-types';
 
-const CourseList = ({listCourses}) => {
+const CourseList = ({ listCourses }) => {
   return (
     <div className="courseListContainer">
       <table id="CourseList">
@@ -41,7 +41,7 @@ CourseList.propTypes = {
 };
 
 CourseList.defaultProps = {
-  listCourses: []
-}
+  listCourses: [],
+};
 
 export default CourseList;
