@@ -1,13 +1,18 @@
 import { shallow } from 'enzyme';
 import Header from './Header';
 import { StyleSheetTestUtils } from 'aphrodite';
-StyleSheetTestUtils.suppressStyleInjection();
 
 let wrapper;
 describe('<Header/> render', () => {
   beforeEach(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
     wrapper = shallow(<Header />);
   });
+
+  afterEach(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+  });
+
   it('render Header component', () => {
     expect(wrapper.exists()).toBe(true);
   });

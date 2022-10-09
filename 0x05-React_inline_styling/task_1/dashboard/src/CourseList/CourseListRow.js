@@ -1,21 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-const rowStyle = {
-  backgroundColor: '#f5f5f5ab',
-};
-const rowHeaderStyle = {
-  backgroundColor: '#deb5b545',
-};
-
-const textCenter = {
-  textAlign: 'center',
-};
+import { StyleSheet, css } from 'aphrodite';
 
 const CourseListRow = ({ isHeader, textFirstCell, textSecondCell }) => {
   if (!isHeader) {
     return (
-      <tr style={rowStyle}>
+      <tr className={css(styles.rowStyles)}>
         <td>{textFirstCell}</td>
         <td>{textSecondCell}</td>
       </tr>
@@ -24,18 +14,27 @@ const CourseListRow = ({ isHeader, textFirstCell, textSecondCell }) => {
 
   if (textSecondCell)
     return (
-      <tr style={rowHeaderStyle}>
+      <tr className={css(styles.rowHeaderStyles)}>
         <th>{textFirstCell}</th>
         <th>{textSecondCell}</th>
       </tr>
     );
 
   return (
-    <tr style={{ ...rowHeaderStyle, ...textCenter }}>
-      <th colSpan="2">{textFirstCell}</th>
+    <tr className={css(styles.rowHeaderStyles)}>
+      <th colSpan={2}>{textFirstCell}</th>
     </tr>
   );
 };
+
+const styles = StyleSheet.create({
+  rowHeaderStyles: {
+    backgroundColor: '#deb5b545',
+  },
+  rowStyles: {
+    backgroundColor: '#f5f5f5ab',
+  },
+});
 
 CourseListRow.propTypes = {
   textSecondCell: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),

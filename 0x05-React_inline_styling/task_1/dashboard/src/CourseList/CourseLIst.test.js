@@ -2,7 +2,6 @@ import { shallow } from 'enzyme';
 import CourseList from './CourseList';
 import CourseListRow from './CourseListRow';
 import { StyleSheetTestUtils } from 'aphrodite';
-StyleSheetTestUtils.suppressStyleInjection();
 
 const listCourses = [
   {
@@ -23,6 +22,13 @@ const listCourses = [
 ];
 
 describe('<CourseList> render', () => {
+  beforeEach(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+  });
+
+  afterEach(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+  });
   it('CourseList component renders successfully without crashing', () => {
     const wrapper = shallow(<CourseList />);
     expect(wrapper.exists()).toBe(true);

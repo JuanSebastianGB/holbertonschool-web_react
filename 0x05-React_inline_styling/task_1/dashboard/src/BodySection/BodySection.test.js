@@ -1,9 +1,15 @@
 import { shallow } from 'enzyme';
 import BodySection from './BodySection';
 import { StyleSheetTestUtils } from 'aphrodite';
-StyleSheetTestUtils.suppressStyleInjection();
 
 describe('<BodySection /> Tests', () => {
+  beforeEach(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+  });
+
+  afterEach(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+  });
   it('Should render correctly', () => {
     const wrapper = shallow(<BodySection />);
     expect(wrapper.exists()).toBe(true);

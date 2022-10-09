@@ -4,7 +4,6 @@ import Notifications from './Notifications';
 import NotificationItem from './NotificationItem';
 import { getLatestNotification } from '../utils/utils';
 import { StyleSheetTestUtils } from 'aphrodite';
-StyleSheetTestUtils.suppressStyleInjection();
 
 let wrapper;
 
@@ -38,8 +37,14 @@ changedListNotifications.push({
 
 describe('<Notifications/> render', () => {
   beforeEach(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
     wrapper = shallow(<Notifications />);
   });
+
+  afterEach(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+  });
+
   it('test that Notifications renders without crashing', () => {
     expect(wrapper.exists()).toBe(true);
   });
@@ -75,6 +80,14 @@ describe('<Notifications/> render', () => {
 });
 
 describe('Test Notification component with the listNotifications prop', () => {
+  beforeEach(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+  });
+
+  afterEach(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+  });
+
   it('renders correctly if you pass an empty array or if you don’t pass the listNotifications property', () => {
     const wrapper = shallow(<Notifications />);
     expect(wrapper.exists()).toBe(true);
@@ -99,6 +112,14 @@ describe('Test Notification component with the listNotifications prop', () => {
 });
 
 describe('Testing markAsRead', () => {
+  beforeEach(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+  });
+
+  afterEach(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+  });
+
   it('when calling the function markAsRead on an instance of the component, the spy is being called with the right message', (done) => {
     const NUMBER = 1;
     console.log = jest.fn();
@@ -118,6 +139,14 @@ describe('Testing markAsRead', () => {
 });
 
 describe('', () => {
+  beforeEach(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+  });
+
+  afterEach(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+  });
+
   it('should verify that when updating the props of the component with the same list, the component doesn’t rerender', () => {
     const wrapper = shallow(
       <Notifications

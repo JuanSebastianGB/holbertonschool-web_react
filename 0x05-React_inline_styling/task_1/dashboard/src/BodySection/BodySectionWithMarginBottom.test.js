@@ -2,9 +2,15 @@ import { shallow } from 'enzyme';
 import BodySection from './BodySection';
 import BodySectionWithMarginBottom from './BodySectionWithMarginBottom';
 import { StyleSheetTestUtils } from 'aphrodite';
-StyleSheetTestUtils.suppressStyleInjection();
 
 describe('<BodySectionWithMarginBottom /> Tests', () => {
+  beforeEach(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+  });
+
+  afterEach(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+  });
   it('Should render correctly', () => {
     const wrapper = shallow(<BodySectionWithMarginBottom />);
     expect(wrapper.exists()).toBe(true);

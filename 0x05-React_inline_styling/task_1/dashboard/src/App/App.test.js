@@ -6,7 +6,6 @@ import Footer from '../Footer/Footer';
 import Notifications from '../Notifications/Notifications';
 import CourseList from '../CourseList/CourseList';
 import { StyleSheetTestUtils } from 'aphrodite';
-StyleSheetTestUtils.suppressStyleInjection();
 
 let wrapper,
   appComponent,
@@ -15,8 +14,14 @@ let wrapper,
 
 describe('<App /> render', () => {
   beforeEach(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
     wrapper = shallow(<App />);
   });
+
+  afterEach(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+  });
+
   it('renders App component', () => {
     expect(wrapper.exists()).toBe(true);
   });
@@ -44,8 +49,14 @@ describe('<App /> render', () => {
 
 describe('<App/> render when using isLoggedIn prop', () => {
   beforeEach(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
     appComponent = shallow(<App isLoggedIn={true} />);
   });
+
+  afterEach(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+  });
+
   it('should verify that the CourseList component is included', () => {
     const courseListComponent = appComponent.find(CourseList);
     expect(courseListComponent.length).toEqual(1);
@@ -58,10 +69,15 @@ describe('<App/> render when using isLoggedIn prop', () => {
 
 describe('<App /> handle correctly events', () => {
   beforeEach(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+
     logOutMock = jest.fn(() => {});
     document.addEventListener = jest.fn((event, callback) => {
       events[event] = callback;
     });
+  });
+  afterEach(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
   });
   it('Should have a logOut function into the rendered component', () => {
     const wrapper = shallow(<App logOut={logOutMock} />);

@@ -1,13 +1,17 @@
 import { shallow } from 'enzyme';
 import Login from './Login';
 import { StyleSheetTestUtils } from 'aphrodite';
-StyleSheetTestUtils.suppressStyleInjection();
 
 let wrapper;
 
 describe('<Login/> render', () => {
   beforeEach(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
     wrapper = shallow(<Login />);
+  });
+
+  afterEach(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
   });
   it('render Login component', () => {
     expect(wrapper.exists()).toBe(true);

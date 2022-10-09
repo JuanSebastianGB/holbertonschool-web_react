@@ -1,9 +1,15 @@
 import { shallow } from 'enzyme';
 import NotificationItem from './NotificationItem';
 import { StyleSheetTestUtils } from 'aphrodite';
-StyleSheetTestUtils.suppressStyleInjection();
 
 describe('<NotificationItem/> render', () => {
+  beforeEach(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+  });
+
+  afterEach(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+  });
   it('test that NotificationItem render without crashing', () => {
     const wrapper = shallow(<NotificationItem />);
     expect(wrapper.exists()).toBe(true);
@@ -26,6 +32,13 @@ describe('<NotificationItem/> render', () => {
 });
 
 describe('handler tests NotificationItem', () => {
+  beforeEach(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+  });
+
+  afterEach(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+  });
   it('when simulating a click on the component, the spy is called with the right ID argument', (done) => {
     const wrapper = shallow(
       <NotificationItem type="default" value="test" id={5} />
