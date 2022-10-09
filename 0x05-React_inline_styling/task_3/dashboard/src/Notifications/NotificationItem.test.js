@@ -26,8 +26,12 @@ describe('<NotificationItem/> render', () => {
       type: 'urgent',
     };
     const wrapper = shallow(<NotificationItem {...props} />);
-    expect(wrapper.html()).toEqual(
-      '<li data-priority="urgent" class="dataPriorityUrgent_137u7ef"><u>test</u></li>'
+    expect(
+      wrapper.contains(
+        <li data-priority="urgent">
+          <u>test</u>
+        </li>
+      )
     );
   });
 });
