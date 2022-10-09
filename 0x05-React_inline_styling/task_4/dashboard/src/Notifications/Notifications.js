@@ -41,7 +41,10 @@ class Notifications extends Component {
     const { displayDrawer, listNotifications } = this.props;
     return (
       <section className={css(styles.container)}>
-        <div className="menuItem">Your notifications</div>
+        {!displayDrawer && (
+          <div className={css(styles.menuItem)}>Your notifications</div>
+        )}
+
         {displayDrawer && (
           <div className={css(styles.notifications)}>
             {listNotifications.length === 0 ? (
@@ -82,15 +85,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: '5px',
     right: '10px',
-  },
-  paddingNone: {
-    '@media (max-width: 900px)': {
-      padding: 0,
-    },
-  },
-  notifications: {
-    border: `dotted thin ${vars.mainColor}`,
-
     '@media (max-width: 900px)': {
       position: 'absolute !important',
       left: 0,
@@ -99,6 +93,33 @@ const styles = StyleSheet.create({
       bottom: 0,
       backgroundColor: 'white',
       fontSize: '20px',
+    },
+  },
+  paddingNone: {
+    '@media (max-width: 900px)': {
+      padding: 0,
+    },
+  },
+  notifications: {
+    border: `dotted thin ${vars.mainColor}`,
+    '@media (max-width: 900px)': {
+      position: 'absolute !important',
+      left: 0,
+      right: 0,
+      top: 0,
+      bottom: 0,
+      backgroundColor: 'white',
+      fontSize: '20px',
+      border: 'none',
+    },
+  },
+  menuItem: {
+    cursor: 'pointer',
+    backgroundColor: '#fff8f8',
+    ':hover': {
+      animationName: [vars.opacityFrameChange, vars.bounceFrameChange],
+      animationDuration: '1s, 0.5s',
+      animationIterationCount: 3,
     },
   },
 });
