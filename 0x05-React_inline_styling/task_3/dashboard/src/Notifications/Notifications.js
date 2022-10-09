@@ -101,6 +101,7 @@ const styles = StyleSheet.create({
     border: `dotted thin ${vars.mainColor}`,
 
     '@media (max-width: 900px)': {
+      border: 'none',
       position: 'absolute !important',
       left: 0,
       right: 0,
@@ -117,7 +118,7 @@ Notifications.propTypes = {
 };
 
 Notifications.defaultProps = {
-  displayDrawer: false,
+  displayDrawer: true,
   listNotifications: [],
 };
 export default Notifications;
