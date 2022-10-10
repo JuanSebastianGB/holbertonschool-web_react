@@ -180,3 +180,41 @@ describe('', () => {
     expect(spyFunction).toHaveLastReturnedWith(true);
   });
 });
+
+describe('verify handle events given by props', () => {
+  beforeEach(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+  });
+
+  afterEach(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+  });
+  it('verify that clicking on the menu item calls handleDisplayDrawer', () => {
+    const mockFnDisplay = jest.fn(() => {});
+    const mockFnHide = jest.fn(() => {});
+    const props = {
+      displayDrawer: false,
+      handleDisplayDrawer: mockFnDisplay,
+      handleHideDrawer: mockFnHide,
+    };
+    wrapper = shallow(<Notifications {...props} />);
+    expect(wrapper.find('.menuItem').exists()).toBe(true);
+    wrapper.find('.menuItem').simulate('click');
+    expect(mockFnDisplay.mock.calls.length).toBe(1);
+  });
+  it('verify that clicking on the button calls handleHideDrawer', () => {
+    const mockFnDisplay = jest.fn(() => {});
+    const mockFnHide = jest.fn(() => {});
+
+    const props = {
+      listNotifications: listNotifications,
+      displayDrawer: true,
+      handleDisplayDrawer: mockFnDisplay,
+      handleHideDrawer: mockFnHide,
+    };
+    wrapper = shallow(<Notifications {...props} />);
+    expect(wrapper.find('button').exists()).toBe(true);
+    wrapper.find('button').simulate('click');
+    expect(mockFnHide.mock.calls.length).toBe(1);
+  });
+});

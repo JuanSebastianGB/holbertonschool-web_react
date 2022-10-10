@@ -22,6 +22,8 @@ class App extends React.Component {
     super(props);
     this.handleCtrlKey = this.handleCtrlKey.bind(this);
     this.state = { displayDrawer: false };
+    this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
+    this.handleHideDrawer = this.handleHideDrawer.bind(this);
   }
 
   /**

@@ -21,8 +21,6 @@ const imgStyles = {
   height: '20px',
 };
 
-const handleClick = () => console.log('Close button has been clicked');
-
 class Notifications extends Component {
   constructor(props) {
     super(props);
@@ -33,7 +31,11 @@ class Notifications extends Component {
     console.log(`Notification ${id} has been marked as read`);
 
   shouldComponentUpdate(nextProps) {
-    return nextProps.listNotifications !== this.props.listNotifications;
+    const updatedDisplayDrawer =
+      nextProps.displayDrawer !== this.props.displayDrawer;
+    const updatedListNotifications =
+      nextProps.listNotifications.length > this.props.listNotifications.length;
+    return updatedDisplayDrawer || updatedListNotifications;
   }
 
   render() {
@@ -47,7 +49,12 @@ class Notifications extends Component {
     return (
       <section className={containerStyles}>
         {!displayDrawer && (
-          <div className={css(styles.menuItem)}>Your notifications</div>
+          <div
+            onClick={() => handleDisplayDrawer()}
+            className={`${css(styles.menuItem)} menuItem`}
+          >
+            Your notifications
+          </div>
         )}
 
         {displayDrawer && (
@@ -70,7 +77,7 @@ class Notifications extends Component {
                   ))}
                 </ul>
                 <button
-                  onClick={handleClick}
+                  onClick={() => handleHideDrawer()}
                   style={buttonStyles}
                   aria-label="close"
                 >
@@ -141,5 +148,7 @@ Notifications.propTypes = {
 Notifications.defaultProps = {
   displayDrawer: false,
   listNotifications: [],
+  handleDisplayDrawer: () => {},
+  handleHideDrawer: () => {},
 };
 export default Notifications;

@@ -9,7 +9,6 @@ class NotificationItem extends React.PureComponent {
       type === 'urgent'
         ? styles.dataPriorityUrgent
         : styles.dataPriorityDefault;
-    console.log(type);
     if (html)
       return (
         <li

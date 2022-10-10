@@ -100,3 +100,23 @@ describe('<App /> handle correctly events', () => {
     done();
   });
 });
+
+describe('<App> handle events that change state', () => {
+  beforeEach(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+    const wrapper = shallow(<App />);
+  });
+  afterEach(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+  });
+  it('verify after calling handleDisplayDrawer, the state should now be true', () => {
+    expect(wrapper.state('displayDrawer')).toEqual(false);
+    expect(wrapper.instance().handleDisplayDrawer());
+    expect(wrapper.state('displayDrawer')).toEqual(true);
+  });
+  it('verify that after calling handleHideDrawer, the state is updated to be false', () => {
+    wrapper.instance().handleDisplayDrawer();
+    wrapper.instance().handleHideDrawer();
+    expect(wrapper.state('displayDrawer')).toBe(false);
+  });
+});
