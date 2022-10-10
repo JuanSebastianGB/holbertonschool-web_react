@@ -1,4 +1,3 @@
-// import './Notifications.css';
 import close from '../assets/close-icon.png';
 import { getLatestNotification } from '../utils/utils';
 import NotificationItem from './NotificationItem';
@@ -38,9 +37,15 @@ class Notifications extends Component {
   }
 
   render() {
-    const { displayDrawer, listNotifications } = this.props;
+    const {
+      displayDrawer,
+      listNotifications,
+      handleDisplayDrawer,
+      handleHideDrawer,
+    } = this.props;
+    const containerStyles = displayDrawer === true ? css(styles.container) : '';
     return (
-      <section className={css(styles.container)}>
+      <section className={containerStyles}>
         {!displayDrawer && (
           <div className={css(styles.menuItem)}>Your notifications</div>
         )}
@@ -116,6 +121,7 @@ const styles = StyleSheet.create({
   menuItem: {
     cursor: 'pointer',
     backgroundColor: '#fff8f8',
+    textAlign: 'right',
     ':hover': {
       animationName: [vars.opacityFrameChange, vars.bounceFrameChange],
       animationDuration: '1s, 0.5s',
@@ -128,6 +134,8 @@ Notifications.propTypes = {
   displayDrawer: PropTypes.bool,
   listNotifications: PropTypes.arrayOf(NotificationItemShape),
   markAsRead: PropTypes.func,
+  handleDisplayDrawer: PropTypes.func,
+  handleHideDrawer: PropTypes.func,
 };
 
 Notifications.defaultProps = {

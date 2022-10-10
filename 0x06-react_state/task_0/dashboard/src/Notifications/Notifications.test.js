@@ -68,11 +68,9 @@ describe('<Notifications/> render', () => {
     expect(wrapper.text()).toContain('Here is the list of notifications');
   });
   it('check that the menu item is being displayed when displayDrawer is false', () => {
-    expect(
-      wrapper.containsMatchingElement(
-        <div className="menuItem">Your notifications</div>
-      )
-    ).toBe(true);
+    expect(wrapper.containsMatchingElement(<div>Your notifications</div>)).toBe(
+      true
+    );
   });
   it('check that the div.Notifications is not being displayed when displayDrawer is false', () => {
     expect(wrapper.find('div.Notifications').length).toBe(0);

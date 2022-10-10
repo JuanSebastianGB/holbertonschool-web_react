@@ -21,8 +21,22 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.handleCtrlKey = this.handleCtrlKey.bind(this);
+    this.state = { displayDrawer: false };
   }
 
+  /**
+   * When the user clicks on the hamburger menu, the drawer will be displayed.
+   */
+  handleDisplayDrawer() {
+    this.setState({ ...this.state, displayDrawer: true });
+  }
+
+  /**
+   * When the user clicks the button, the drawer will be hidden.
+   */
+  handleHideDrawer() {
+    this.setState({ ...this.state, displayDrawer: false });
+  }
   /**
    * If the user presses the 'h' key while holding down the 'ctrl' key, log the user out
    * @param event - The event object
@@ -45,7 +59,12 @@ class App extends React.Component {
     return (
       <Fragment>
         <div className={css(styles.container)}>
-          <Notifications listNotifications={listNotifications} />
+          <Notifications
+            displayDrawer={this.state.displayDrawer}
+            handleDisplayDrawer={this.handleDisplayDrawer}
+            handleHideDrawer={this.handleHideDrawer}
+            listNotifications={listNotifications}
+          />
           <div className={css(styles.app)}>
             <Header />
           </div>
