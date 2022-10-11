@@ -1,4 +1,4 @@
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import App from './App';
 import Header from '../Header/Header';
 import Login from '../Login/Login';
@@ -6,6 +6,7 @@ import Footer from '../Footer/Footer';
 import Notifications from '../Notifications/Notifications';
 import CourseList from '../CourseList/CourseList';
 import { StyleSheetTestUtils } from 'aphrodite';
+import { AppContext, user, logOut } from './AppContext';
 
 let wrapper,
   appComponent,
@@ -120,5 +121,34 @@ describe('<App> handle events that change state', () => {
     wrapper.instance().handleDisplayDrawer();
     wrapper.instance().handleHideDrawer();
     expect(wrapper.state('displayDrawer')).toBe(false);
+  });
+  it('verify that the logIn function updates the state correctly', () => {
+    const value = {
+      user,
+      logOut,
+    };
+    const wrapper = mount(
+      <AppContext.Provider value={value}>
+        <App />
+      </AppContext.Provider>
+    );
+    wrapper.instance().logIn('user@gmail.com', 'top secret');
+    expect(wrapper.state().user.isLoggedIn).toBe(true);
+    expect(wrapper.state().user.email).toBe('user@gmail.com');
+  });
+  it('verify that the logOut function updates the state correctly', () => {
+    const value = {
+      user,
+      logOut,
+    };
+    const wrapper = mount(
+      <AppContext.Provider value={value}>
+        <App />
+      </AppContext.Provider>
+    );
+    wrapper.instance().logIn('user@gmail.com', 'top secret');
+    wrapper.instance().logOut();
+    expect(wrapper.state().user.isLoggedIn).toBe(false);
+    expect(wrapper.state().user.email).toBe('');
   });
 });
