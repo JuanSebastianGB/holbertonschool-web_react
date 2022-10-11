@@ -9,15 +9,14 @@ class Header extends React.Component {
     super(props);
   }
   render() {
-    const { user, logOut } = this.context;
     return (
       <div className={css(styles.headerContainer)}>
-        {user.isLoggedIn && (
+        {this.context.user.isLoggedIn && (
           <section id="logoutSection">
-            Welcome {user.email}{' '}
-            <a href="#" onClick={logOut}>
+            Welcome {user.email}
+            <a href="#" onClick={this.context.logOut}>
               (logOut)
-            </a>{' '}
+            </a>
           </section>
         )}
         <img src={logo} className={css(styles.logo)} alt="logo" />
@@ -26,15 +25,6 @@ class Header extends React.Component {
     );
   }
 }
-
-// const Header = () => {
-//   return (
-//     <div className={css(styles.headerContainer)}>
-//       <img src={logo} className={css(styles.logo)} alt="logo" />
-//       <h1 className={css(styles.title)}>School dashboard</h1>
-//     </div>
-//   );
-// };
 
 const styles = StyleSheet.create({
   headerContainer: {

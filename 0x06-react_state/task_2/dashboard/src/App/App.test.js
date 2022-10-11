@@ -50,7 +50,7 @@ describe('<App /> render', () => {
 describe('<App/> render when using isLoggedIn prop', () => {
   beforeEach(() => {
     StyleSheetTestUtils.suppressStyleInjection();
-    appComponent = shallow(<App isLoggedIn={true} />);
+    appComponent = shallow(<App />);
   });
 
   afterEach(() => {
@@ -58,10 +58,12 @@ describe('<App/> render when using isLoggedIn prop', () => {
   });
 
   it('should verify that the CourseList component is included', () => {
+    appComponent.setState({ user: { isLoggedIn: true } });
     const courseListComponent = appComponent.find(CourseList);
     expect(courseListComponent.length).toEqual(1);
   });
   it('should verify that the Login component is not included', () => {
+    appComponent.setState({ user: { isLoggedIn: true } });
     const loginComponent = appComponent.find(Login);
     expect(loginComponent.length).toEqual(0);
   });
