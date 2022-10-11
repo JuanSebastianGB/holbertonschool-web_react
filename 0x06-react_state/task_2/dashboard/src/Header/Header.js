@@ -13,7 +13,7 @@ class Header extends React.Component {
       <div className={css(styles.headerContainer)}>
         {this.context.user.isLoggedIn && (
           <section id="logoutSection">
-            Welcome {user.email}
+            Welcome {this.context.user.email}
             <a href="#" onClick={this.context.logOut}>
               (logOut)
             </a>
