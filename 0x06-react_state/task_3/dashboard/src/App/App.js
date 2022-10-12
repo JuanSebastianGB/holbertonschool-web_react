@@ -24,9 +24,15 @@ class App extends React.Component {
     this.handleCtrlKey = this.handleCtrlKey.bind(this);
     this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
     this.handleHideDrawer = this.handleHideDrawer.bind(this);
+    this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
     this.logIn = this.logIn.bind(this);
     this.logOut = this.logOut.bind(this);
-    this.state = { displayDrawer: false, user, logOut: this.logOut };
+    this.state = {
+      displayDrawer: false,
+      user,
+      logOut: this.logOut,
+      listNotifications,
+    };
   }
 
   /**
@@ -79,6 +85,21 @@ class App extends React.Component {
     this.setState({ ...this.state, user });
   }
 
+  /**
+   * It filters out the notification with the given id from the list of notifications
+   * @param id - The id of the notification to be marked as read.
+   */
+  markNotificationAsRead(id) {
+    const { listNotifications } = this.state;
+    const listNotificationsFiltered = listNotifications.filter(
+      (notification) => notification.id !== Number(id)
+    );
+    this.setState({
+      ...this.state,
+      listNotifications: listNotificationsFiltered,
+    });
+  }
+
   render() {
     const { isLoggedIn } = this.state.user;
     return (
@@ -90,7 +111,8 @@ class App extends React.Component {
             displayDrawer={this.state.displayDrawer}
             handleDisplayDrawer={this.handleDisplayDrawer}
             handleHideDrawer={this.handleHideDrawer}
-            listNotifications={listNotifications}
+            listNotifications={this.state.listNotifications}
+            markNotificationAsRead={this.markNotificationAsRead}
           />
           <div className={css(styles.app)}>
             <Header />

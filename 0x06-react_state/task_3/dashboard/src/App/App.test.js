@@ -7,12 +7,16 @@ import Notifications from '../Notifications/Notifications';
 import CourseList from '../CourseList/CourseList';
 import { StyleSheetTestUtils } from 'aphrodite';
 import { AppContext, user, logOut } from './AppContext';
+import { listNotifications } from '../App/data';
 
 let wrapper,
   appComponent,
   logOutMock,
   events = {};
-
+const value = {
+  user,
+  logOut,
+};
 describe('<App /> render', () => {
   beforeEach(() => {
     StyleSheetTestUtils.suppressStyleInjection();
@@ -123,10 +127,6 @@ describe('<App> handle events that change state', () => {
     expect(wrapper.state('displayDrawer')).toBe(false);
   });
   it('verify that the logIn function updates the state correctly', () => {
-    const value = {
-      user,
-      logOut,
-    };
     const wrapper = mount(
       <AppContext.Provider value={value}>
         <App />
@@ -137,10 +137,6 @@ describe('<App> handle events that change state', () => {
     expect(wrapper.state().user.email).toBe('user@gmail.com');
   });
   it('verify that the logOut function updates the state correctly', () => {
-    const value = {
-      user,
-      logOut,
-    };
     const wrapper = mount(
       <AppContext.Provider value={value}>
         <App />
@@ -150,5 +146,16 @@ describe('<App> handle events that change state', () => {
     wrapper.instance().logOut();
     expect(wrapper.state().user.isLoggedIn).toBe(false);
     expect(wrapper.state().user.email).toBe('');
+  });
+  it('verify that markNotificationAsRead works as intended. It deletes a notification with id = 3', () => {
+    value.user.isLoggedIn = true;
+    const wrapper = mount(
+      <AppContext.Provider value={value}>
+        <App />
+      </AppContext.Provider>
+    );
+    wrapper.setState({ listNotifications });
+    wrapper.instance().markNotificationAsRead(3);
+    expect(wrapper.state('listNotifications').length).toBe(2);
   });
 });

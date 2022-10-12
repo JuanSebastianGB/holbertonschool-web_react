@@ -4,7 +4,7 @@ import { StyleSheet, css } from 'aphrodite';
 
 class NotificationItem extends React.PureComponent {
   render() {
-    const { type, html, value, markAsRead, id } = this.props;
+    const { type, html, value, markNotificationAsRead, id } = this.props;
     let classToRender =
       type === 'urgent'
         ? styles.dataPriorityUrgent
@@ -12,7 +12,7 @@ class NotificationItem extends React.PureComponent {
     if (html)
       return (
         <li
-          onClick={() => markAsRead(id)}
+          onClick={() => markNotificationAsRead(id)}
           data-priority={type}
           className={css(classToRender)}
           dangerouslySetInnerHTML={html}
@@ -20,7 +20,7 @@ class NotificationItem extends React.PureComponent {
       );
     return (
       <li
-        onClick={() => markAsRead(id)}
+        onClick={() => markNotificationAsRead(id)}
         data-priority={type}
         className={css(classToRender)}
       >
@@ -52,12 +52,12 @@ NotificationItem.propTypes = {
   html: PropTypes.shape({ __html: PropTypes.string }),
   type: PropTypes.string,
   value: PropTypes.string,
-  markAsRead: PropTypes.func,
+  markNotificationAsRead: PropTypes.func,
   id: PropTypes.number,
 };
 
 NotificationItem.defaultProps = {
   type: 'default',
-  markAsRead: () => {},
+  markNotificationAsRead: () => {},
 };
 export default NotificationItem;
