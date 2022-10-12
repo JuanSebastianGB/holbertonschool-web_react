@@ -3,6 +3,7 @@ import Footer from './Footer';
 import { AppContext, user, logOut } from '../App/AppContext';
 
 let wrapper;
+const value = { user, logOut };
 describe('<Footer/> render', () => {
   beforeEach(() => {
     wrapper = mount(<Footer />);
@@ -14,7 +15,7 @@ describe('<Footer/> render', () => {
     expect(wrapper.text()).toContain('Copyright');
   });
   it('verify that the link is not displayed when the user is logged out within the context', () => {
-    const value = { user: { ...user, isLoggedIn: false }, logOut };
+    value.user.isLoggedIn = false;
     const wrapper = mount(
       <AppContext.Provider value={value}>
         <Footer />
@@ -23,7 +24,7 @@ describe('<Footer/> render', () => {
     expect(wrapper.find('a').exists()).toBe(false);
   });
   it('verify that the link is displayed when the user is logged in within the context', () => {
-    const value = { user: { ...user, isLoggedIn: true }, logOut };
+    value.user.isLoggedIn = true;
     const wrapper = mount(
       <AppContext.Provider value={value}>
         <Footer />
