@@ -1,19 +1,17 @@
 import { Seq } from 'immutable';
 
-const upperCaseFirstLetter = (data) =>
-  `${data[0].toUpperCase()}${data.slice(1)}`;
-
 const printBestStudents = (grades) => {
   const filteredPerson = Seq(grades)
     .filter((person) => person.score >= 70)
-    .map((person) => {
-      const { firstName, lastName } = person;
-      return {
-        ...person,
-        firstName: upperCaseFirstLetter(firstName),
-        lastName: upperCaseFirstLetter(lastName),
-      };
-    })
+    .map((person) => ({
+      ...person,
+      firstName: `${person.firstName[0].toUpperCase()}${person.firstName.slice(
+        1
+      )}`,
+      lastName: `${person.lastName[0].toUpperCase()}${person.lastName.slice(
+        1
+      )}`,
+    }))
     .toObject();
   console.log(filteredPerson);
   return filteredPerson;
