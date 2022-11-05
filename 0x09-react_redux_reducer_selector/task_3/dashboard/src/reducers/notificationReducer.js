@@ -11,18 +11,21 @@ const initialState = {
 export const notificationReducer = (state, action) => {
   switch (action.type) {
     case FETCH_NOTIFICATIONS_SUCCESS:
-      return action.payload.map((notification) => ({
+      return action.notifications.map((notification) => ({
         ...notification,
         isRead: false,
       }));
     case MARK_AS_READ:
-      return state.notification.map((notification) =>
-        notification.id === action.payload
+      const { notifications } = state;
+      const updatedNotifications = notifications.map((notification) =>
+        notification.id === action.index
           ? { ...notification, isRead: true }
           : { ...notification }
       );
+      return { ...state, notifications: updatedNotifications };
     case SET_TYPE_FILTER:
-      return { ...state, filter: action.payload };
+      const { filter } = action;
+      return { ...state, filter };
 
     default:
       return initialState;
