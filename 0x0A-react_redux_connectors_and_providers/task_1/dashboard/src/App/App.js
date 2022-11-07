@@ -1,6 +1,10 @@
 import { css, StyleSheet } from 'aphrodite';
 import React from 'react';
 import { connect } from 'react-redux';
+import {
+  displayNotificationDrawer,
+  hideNotificationDrawer,
+} from '../actions/uiActionCreators';
 import BodySection from '../BodySection/BodySection';
 import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom';
 import CourseList from '../CourseList/CourseList';
@@ -101,8 +105,8 @@ class App extends React.Component {
         <div className={css(styles.container)}>
           <Notifications
             displayDrawer={this.props.displayDrawer}
-            handleDisplayDrawer={this.handleDisplayDrawer}
-            handleHideDrawer={this.handleHideDrawer}
+            handleDisplayDrawer={this.props.displayNotificationDrawer}
+            handleHideDrawer={this.props.hideNotificationDrawer}
             listNotifications={this.state.listNotifications}
             markNotificationAsRead={this.markNotificationAsRead}
           />
@@ -173,5 +177,9 @@ export const mapStateProps = (state) => ({
   isUserLoggedIn: state.get('isUserLoggedIn'),
   displayDrawer: state.get('isNotificationDrawerVisible'),
 });
+export const mapDispatchToProps = {
+  displayNotificationDrawer,
+  hideNotificationDrawer,
+};
 
-export default connect(mapStateProps)(App);
+export default connect(mapStateProps, mapDispatchToProps)(App);
