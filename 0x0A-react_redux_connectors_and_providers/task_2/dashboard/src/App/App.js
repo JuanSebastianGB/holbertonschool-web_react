@@ -24,11 +24,8 @@ class App extends React.Component {
     super(props);
     this.handleCtrlKey = this.handleCtrlKey.bind(this);
     this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
-    this.logIn = this.logIn.bind(this);
-    this.logOut = this.logOut.bind(this);
     this.state = {
       user,
-      logOut: this.logOut,
       listNotifications,
     };
   }
@@ -40,32 +37,13 @@ class App extends React.Component {
   handleCtrlKey(event) {
     if (event.keyCode === 72 && event.ctrlKey) {
       alert('Logging you out');
-      this.logOut();
+      this.props.log;
+      this.props.logout();
     }
   }
 
   componentDidMount(e) {
     document.addEventListener('keydown', this.handleCtrlKey, false);
-  }
-
-  /**
-   * `logIn` takes an email and password, and sets the state of the component to have a user object with
-   * the email and password
-   * @param email - The email address of the user.
-   * @param password - The password of the user.
-   */
-  logIn(email, password) {
-    this.setState({
-      ...this.state,
-      user: { email, password, isLoggedIn: true },
-    });
-  }
-
-  /**
-   * It sets the state of the user to the user object.
-   */
-  logOut() {
-    this.setState({ ...this.state, user });
   }
 
   /**
@@ -107,7 +85,7 @@ class App extends React.Component {
               </BodySectionWithMarginBottom>
             ) : (
               <BodySectionWithMarginBottom>
-                <Login logIn={this.logIn} title="Log in to continue" />
+                <Login logIn={this.props.login} title="Log in to continue" />
               </BodySectionWithMarginBottom>
             )}
             <BodySection title="News from the School">
@@ -164,16 +142,14 @@ const styles = StyleSheet.create({
     width: '100%',
   },
 });
-export const mapStateToProps = (state) => {
-  return {
-    isUserLoggedIn: state.get('isUserLoggedIn'),
-    displayDrawer: state.get('isNotificationDrawerVisible'),
-  };
-};
+export const mapStateToProps = (state) => ({
+  isUserLoggedIn: state.get('isUserLoggedIn'),
+  displayDrawer: state.get('isNotificationDrawerVisible'),
+});
 export const mapDispatchToProps = {
   displayNotificationDrawer,
   hideNotificationDrawer,
-  loginRequest,
+  login: loginRequest,
   logout,
 };
 
