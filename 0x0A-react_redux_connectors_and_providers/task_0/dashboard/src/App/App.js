@@ -171,6 +171,6 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateProps = (state) => state.isUserLoggedIn;
+export const mapStateProps = (state) => state.toJS();
 
 export default connect(mapStateProps)(App);
