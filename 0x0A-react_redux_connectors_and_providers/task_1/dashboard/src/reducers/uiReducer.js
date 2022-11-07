@@ -7,13 +7,13 @@ import {
   LOGOUT,
 } from '../actions/uiActionTypes';
 
-export const initialState = {
+export const initialState = Map({
   isNotificationDrawerVisible: false,
   isUserLoggedIn: false,
   user: {},
-};
+});
 
-export const uiReducer = (state = Map(initialState), action) => {
+export const uiReducer = (state = initialState, action) => {
   switch (action?.type) {
     case DISPLAY_NOTIFICATION_DRAWER:
       return state.set('isNotificationDrawerVisible', true);
