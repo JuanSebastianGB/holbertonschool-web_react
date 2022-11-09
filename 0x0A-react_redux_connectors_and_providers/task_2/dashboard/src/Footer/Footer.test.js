@@ -1,12 +1,11 @@
-import { shallow, mount } from 'enzyme';
-import Footer from './Footer';
-import { AppContext, user, logOut } from '../App/AppContext';
+import { shallow } from 'enzyme';
+import { userObjectTest } from '../Header/Header.test';
+import { Footer } from './Footer';
 
 let wrapper;
-const value = { user, logOut };
 describe('<Footer/> render', () => {
   beforeEach(() => {
-    wrapper = mount(<Footer />);
+    wrapper = shallow(<Footer />);
   });
   it('render Footer component', () => {
     expect(wrapper.exists()).toBe(true);
@@ -15,21 +14,11 @@ describe('<Footer/> render', () => {
     expect(wrapper.text()).toContain('Copyright');
   });
   it('verify that the link is not displayed when the user is logged out within the context', () => {
-    value.user.isLoggedIn = false;
-    const wrapper = mount(
-      <AppContext.Provider value={value}>
-        <Footer />
-      </AppContext.Provider>
-    );
+    const wrapper = shallow(<Footer user={null} />);
     expect(wrapper.find('a').exists()).toBe(false);
   });
   it('verify that the link is displayed when the user is logged in within the context', () => {
-    value.user.isLoggedIn = true;
-    const wrapper = mount(
-      <AppContext.Provider value={value}>
-        <Footer />
-      </AppContext.Provider>
-    );
+    const wrapper = shallow(<Footer user={userObjectTest} />);
     expect(wrapper.find('a').exists()).toBe(true);
   });
 });

@@ -1,23 +1,15 @@
-import { shallow, mount } from 'enzyme';
-import Header from './Header';
 import { StyleSheetTestUtils } from 'aphrodite';
-import { user, logOut, AppContext } from '../App/AppContext';
+import { shallow } from 'enzyme/build';
+import { logOut, user } from '../App/AppContext';
+import { Header } from './Header';
 const value = { user, logOut };
 
-let wrapper, wrapperMount;
+export const userObjectTest = { email: 'test@test.com', password: '123456' };
+let wrapper;
 describe('<Header/> render', () => {
   beforeEach(() => {
     StyleSheetTestUtils.suppressStyleInjection();
-    wrapper = shallow(
-      <AppContext.Provider value={value}>
-        <Header />
-      </AppContext.Provider>
-    );
-    wrapperMount = mount(
-      <AppContext.Provider value={value}>
-        <Header />
-      </AppContext.Provider>
-    );
+    wrapper = shallow(<Header />);
   });
 
   afterEach(() => {
@@ -28,41 +20,18 @@ describe('<Header/> render', () => {
     expect(wrapper.exists()).toBe(true);
   });
   it('verify that Header component has a img tag', () => {
-    const imgTag = wrapperMount.find('img');
+    const imgTag = wrapper.find('img');
     expect(imgTag.exists()).toBe(true);
   });
   it('verify that header component has a h1 tag', () => {
-    const h1Tag = wrapperMount.find('h1');
+    const h1Tag = wrapper.find('h1');
     expect(h1Tag.exists()).toBe(true);
   });
   it('Verify that the logoutSection is not created', () => {
-    expect(wrapperMount.find('logoutSection').exists()).toBe(false);
+    expect(wrapper.find('logoutSection').exists()).toBe(false);
   });
   it('with a user defined (isLoggedIn is true and an email is set). Verify that the logoutSection is created', () => {
-    value.user.email = 'test@email.com';
-    value.user.password = 'Top secret, never will guess it';
-    value.user.isLoggedIn = true;
-    const wrapper = mount(
-      <AppContext.Provider value={value}>
-        <Header />
-      </AppContext.Provider>
-    );
-    expect(wrapper.context().user.email).toBe('test@email.com');
-    expect(wrapper.context().user.isLoggedIn).toBe(true);
+    const wrapper = shallow(<Header user={userObjectTest} />);
     expect(wrapper.find('#logoutSection').exists()).toBe(true);
-  });
-  it('verify that clicking the link call to an spy', () => {
-    value.user.email = 'test@email.com';
-    value.user.password = 'Top secret, never will guess it';
-    value.user.isLoggedIn = true;
-    value.logOut = jest.fn();
-    const wrapper = mount(
-      <AppContext.Provider value={value}>
-        <Header />
-      </AppContext.Provider>
-    );
-    const logOutLink = wrapper.find('a');
-    logOutLink.simulate('click');
-    expect(value.logOut).toHaveBeenCalled();
   });
 });

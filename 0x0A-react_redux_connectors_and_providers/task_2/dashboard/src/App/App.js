@@ -19,7 +19,7 @@ import vars from '../utils/styleVars';
 import { AppContext, user } from './AppContext';
 import { listCourses, listNotifications } from './data';
 
-class App extends React.Component {
+export class App extends React.Component {
   constructor(props) {
     super(props);
     this.handleCtrlKey = this.handleCtrlKey.bind(this);
