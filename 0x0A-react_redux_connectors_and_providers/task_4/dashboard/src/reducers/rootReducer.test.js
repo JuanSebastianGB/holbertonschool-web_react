@@ -2,8 +2,8 @@ import { Map } from 'immutable';
 import { combineReducers } from 'redux';
 import rootReducer from './rootReducer';
 
-describe('', () => {
-  it('', () => {
+describe('Combine store tests', () => {
+  it('the root reducer’s initial state for the following structure has the right structure', () => {
     const expectedState = {
       courses: Map({}),
       notifications: Map({}),
