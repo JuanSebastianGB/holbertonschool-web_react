@@ -27,6 +27,6 @@ Footer.propTypes = {
   user: PropTypes.object,
 };
 
-const mapStateToProps = (state) => ({ user: state.get('user') });
+const mapStateToProps = (state) => ({ user: state.ui.get('user') });
 
 export default connect(mapStateToProps, null)(Footer);

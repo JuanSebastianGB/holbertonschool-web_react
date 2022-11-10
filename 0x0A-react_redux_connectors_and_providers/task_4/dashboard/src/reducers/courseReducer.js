@@ -6,8 +6,11 @@ import {
 } from '../actions/courseActionTypes';
 import { coursesNormalizer } from '../schema/courses';
 
-const initialState = Map([]);
-export const courseReducer = (state = initialState, action) => {
+export const courseReducerInitialState = [];
+export const courseReducer = (
+  state = Map(courseReducerInitialState),
+  action
+) => {
   switch (action.type) {
     case FETCH_COURSE_SUCCESS:
       const listCoursesAsObject = coursesNormalizer(action.payload);
@@ -21,6 +24,7 @@ export const courseReducer = (state = initialState, action) => {
       return state.setIn([String(action.index), 'isSelected'], false);
 
     default:
-      return initialState.toJS();
+      break;
   }
+  return Map(courseReducerInitialState);
 };

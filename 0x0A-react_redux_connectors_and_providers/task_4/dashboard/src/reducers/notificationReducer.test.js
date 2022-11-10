@@ -36,7 +36,7 @@ describe('notifications reducer', () => {
   };
   it('default state returns the initial data', () => {
     const result = notificationReducer(undefined, { type: 'ANY_TYPE' });
-    expect(result).toEqual(initialState);
+    expect(result).toEqual(Map(initialState));
   });
   it('check the right response using FETCH_NOTIFICATIONS_SUCCESS', () => {
     const notifications = [

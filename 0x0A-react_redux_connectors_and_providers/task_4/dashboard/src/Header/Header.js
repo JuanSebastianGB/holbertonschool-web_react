@@ -59,7 +59,7 @@ Header.propTypes = {
   logout: PropTypes.func,
 };
 
-const mapStateToProps = (state) => ({ user: state.get('user') });
+const mapStateToProps = (state) => ({ user: state.ui.get('user') });
 export const mapDispatchToProps = {
   logout,
 };

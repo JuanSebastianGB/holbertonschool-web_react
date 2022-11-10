@@ -1,17 +1,16 @@
-import { Map } from 'immutable';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { applyMiddleware, createStore } from 'redux';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import App from './App/App';
-import { initialState, uiReducer } from './reducers/uiReducer';
+import rootReducer, { rootReducerInitialState } from './reducers/rootReducer';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
-  uiReducer,
-  Map(initialState),
+  combineReducers(rootReducer),
+  rootReducerInitialState,
   composeEnhancers(applyMiddleware(thunk))
 );
 

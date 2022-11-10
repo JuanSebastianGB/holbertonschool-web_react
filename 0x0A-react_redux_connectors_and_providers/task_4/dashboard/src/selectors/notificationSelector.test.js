@@ -29,7 +29,7 @@ const actionNotifications = [
 describe('Selectors', () => {
   it('filterTypeSelected works as expected', () => {
     const result = filterTypeSelected(
-      notificationReducer(undefined, { type: 'ANY_DATA' })
+      notificationReducer(undefined, { type: 'ANY_DATA' }).toJS()
     );
     expect(result).toEqual('DEFAULT');
   });

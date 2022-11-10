@@ -6,11 +6,14 @@ import {
 } from '../actions/notificationActionTypes';
 import { notificationsNormalizer } from '../schema/notifications';
 
-const initialState = {
+export const notificationReducerInitialState = {
   notifications: Map([]),
   filter: 'DEFAULT',
 };
-export const notificationReducer = (state = Map(initialState), action) => {
+export const notificationReducer = (
+  state = Map(notificationReducerInitialState),
+  action
+) => {
   switch (action.type) {
     case FETCH_NOTIFICATIONS_SUCCESS:
       const listNotificationsAsObject = notificationsNormalizer(
@@ -36,6 +39,7 @@ export const notificationReducer = (state = Map(initialState), action) => {
       return state.set('filter', filter);
 
     default:
-      return initialState;
+      break;
   }
+  return Map(notificationReducerInitialState);
 };

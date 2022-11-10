@@ -28,10 +28,8 @@ const data = [
 const immutableNormalizedData = Map(coursesNormalizer(data));
 
 describe('courseReducer', () => {
-  it('default state returns an empty array', () => {
-    const result = courseReducer(undefined, { type: 'ANY_DATA' });
-    expect(Object.keys(result).length).toBe(0);
-    expect(Array.isArray(result)).toBe(false);
+  it('default state returns an empty object', () => {
+    const result = courseReducer(undefined, { type: 'ANY_DATA' }).toJS();
     expect(result).toEqual({});
   });
   it('FETCH_COURSE_SUCCESS returns the data passed', () => {

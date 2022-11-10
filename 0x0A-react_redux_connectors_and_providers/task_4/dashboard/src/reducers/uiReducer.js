@@ -8,13 +8,13 @@ import {
   LOGOUT,
 } from '../actions/uiActionTypes';
 
-export const initialState = Map({
+export const uiReducerInitialState = {
   isNotificationDrawerVisible: false,
   isUserLoggedIn: false,
-  user: {},
-});
+  user: null,
+};
 
-export const uiReducer = (state = initialState, action) => {
+export const uiReducer = (state = Map(uiReducerInitialState), action) => {
   switch (action?.type) {
     case LOGIN:
       return state.set('user', action.user);
@@ -29,6 +29,7 @@ export const uiReducer = (state = initialState, action) => {
     case LOGOUT:
       return state.set('isUserLoggedIn', false).set('user', null);
     default:
-      return initialState;
+      break;
   }
+  return Map(uiReducerInitialState);
 };
