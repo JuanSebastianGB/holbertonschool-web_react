@@ -17,7 +17,7 @@ import Login from '../Login/Login';
 import Notifications from '../Notifications/Notifications';
 import vars from '../utils/styleVars';
 import { AppContext, user } from './AppContext';
-import { listCourses, listNotifications } from './data';
+import { listCourses } from './data';
 
 export class App extends React.Component {
   constructor(props) {
@@ -26,7 +26,6 @@ export class App extends React.Component {
     this.markNotificationAsRead = this.markNotificationAsRead.bind(this);
     this.state = {
       user,
-      listNotifications,
     };
   }
 
@@ -73,7 +72,6 @@ export class App extends React.Component {
             handleDisplayDrawer={this.props.displayNotificationDrawer}
             handleHideDrawer={this.props.hideNotificationDrawer}
             listNotifications={this.state.listNotifications}
-            markNotificationAsRead={this.markNotificationAsRead}
           />
           <div className={css(styles.app)}>
             <Header />
