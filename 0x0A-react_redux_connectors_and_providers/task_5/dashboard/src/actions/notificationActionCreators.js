@@ -21,9 +21,9 @@ export const setLoadingState = (loadState) => ({
   loadState,
 });
 
-export const setNotifications = (data) => ({
+export const setNotifications = (notifications) => ({
   type: FETCH_NOTIFICATIONS_SUCCESS,
-  data,
+  notifications,
 });
 
 export const fetchNotifications = () => async (dispatch) => {

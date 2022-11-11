@@ -2,7 +2,7 @@ import { fromJS, Map } from 'immutable';
 import {
   FETCH_NOTIFICATIONS_SUCCESS,
   MARK_AS_READ,
-  SET_TYPE_FILTER,
+  SET_TYPE_FILTER
 } from '../actions/notificationActionTypes';
 import { notificationsNormalizer } from '../schema/notifications';
 import { notificationReducer } from './notificationReducer';
@@ -33,6 +33,7 @@ describe('notifications reducer', () => {
   const initialState = {
     notifications: Map([]),
     filter: 'DEFAULT',
+    loading: false
   };
   it('default state returns the initial data', () => {
     const result = notificationReducer(undefined, { type: 'ANY_TYPE' });
