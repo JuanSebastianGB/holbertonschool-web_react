@@ -1,9 +1,9 @@
-import { shallow } from 'enzyme';
-import sinon from 'sinon';
-import Notifications from './Notifications';
-import NotificationItem from './NotificationItem';
-import { getLatestNotification } from '../utils/utils';
 import { StyleSheetTestUtils } from 'aphrodite';
+import { shallow } from 'enzyme';
+import { normalizedNotifications } from '../schema/notifications';
+import { getLatestNotification } from '../utils/utils';
+import NotificationItem from './NotificationItem';
+import { Notifications } from './Notifications';
 
 let wrapper;
 
@@ -52,17 +52,17 @@ describe('<Notifications/> render', () => {
     wrapper = shallow(
       <Notifications
         displayDrawer={true}
-        listNotifications={listNotifications}
+        listNotifications={normalizedNotifications}
       />
     );
     const liElements = wrapper.find(NotificationItem);
-    expect(liElements.length).toEqual(3);
+    expect(liElements.length).toEqual(2);
   });
   it('verify that Notifications renders the text Here is the list of notifications', () => {
     wrapper = shallow(
       <Notifications
         displayDrawer={true}
-        listNotifications={listNotifications}
+        listNotifications={normalizedNotifications}
       />
     );
     expect(wrapper.text()).toContain('Here is the list of notifications');
@@ -94,11 +94,11 @@ describe('Test Notification component with the listNotifications prop', () => {
     const wrapper = shallow(
       <Notifications
         displayDrawer={true}
-        listNotifications={listNotifications}
+        listNotifications={normalizedNotifications}
       />
     );
     const liItems = wrapper.find(NotificationItem);
-    expect(liItems.length).toBe(3);
+    expect(liItems.length).toBe(2);
   });
   it('when listNotifications is empty the message Here is the list of notifications is not displayed but No new notification for now is', () => {
     const wrapper = shallow(<Notifications displayDrawer={true} />);
@@ -135,7 +135,7 @@ describe('verify handle events given by props', () => {
     const mockFnHide = jest.fn(() => {});
 
     const props = {
-      listNotifications: listNotifications,
+      listNotifications: normalizedNotifications,
       displayDrawer: true,
       handleDisplayDrawer: mockFnDisplay,
       handleHideDrawer: mockFnHide,

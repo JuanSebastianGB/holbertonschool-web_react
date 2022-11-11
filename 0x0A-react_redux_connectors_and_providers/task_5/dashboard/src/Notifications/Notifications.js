@@ -1,11 +1,11 @@
-import close from '../assets/close-icon.png';
-import { getLatestNotification } from '../utils/utils';
-import NotificationItem from './NotificationItem';
+import { css, StyleSheet } from 'aphrodite';
 import PropTypes from 'prop-types';
-import { NotificationItemShape } from './NotificationItemShape';
-import { Fragment, PureComponent } from 'react';
-import { StyleSheet, css } from 'aphrodite';
+import { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+import { fetchNotifications } from '../actions/notificationActionCreators';
+import close from '../assets/close-icon.png';
 import vars from '../utils/styleVars';
+import NotificationItem from './NotificationItem';
 
 const buttonStyles = {
   display: 'inline',
@@ -21,7 +21,15 @@ const imgStyles = {
   height: '20px',
 };
 
-class Notifications extends PureComponent {
+export class Notifications extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    this.props.fetchNotifications();
+  }
+
   render() {
     const {
       displayDrawer,
@@ -45,22 +53,26 @@ class Notifications extends PureComponent {
 
         {displayDrawer && (
           <div className={css(styles.notifications)}>
-            {listNotifications.length === 0 ? (
+            {listNotifications &&
+            Object.values(listNotifications).length === 0 ? (
               <p>No new notification for now</p>
             ) : (
               <Fragment>
                 <p>Here is the list of notifications</p>
                 <ul className={css(styles.paddingNone)}>
-                  {listNotifications.map((notification, index) => (
-                    <NotificationItem
-                      key={index}
-                      id={notification.id}
-                      type={notification.type}
-                      value={notification.value}
-                      html={notification.html}
-                      markNotificationAsRead={markNotificationAsRead}
-                    />
-                  ))}
+                  {listNotifications &&
+                    Object.values(listNotifications).map(
+                      (notification, index) => (
+                        <NotificationItem
+                          key={index}
+                          id={notification.id}
+                          type={notification.type}
+                          value={notification.value}
+                          html={notification.html}
+                          markNotificationAsRead={markNotificationAsRead}
+                        />
+                      )
+                    )}
                 </ul>
                 <button
                   onClick={() => handleHideDrawer()}
@@ -103,6 +115,7 @@ const styles = StyleSheet.create({
     '@media (max-width: 900px)': {
       position: 'absolute !important',
       left: 0,
+
       right: 0,
       top: 0,
       bottom: 0,
@@ -125,7 +138,7 @@ const styles = StyleSheet.create({
 
 Notifications.propTypes = {
   displayDrawer: PropTypes.bool,
-  listNotifications: PropTypes.arrayOf(NotificationItemShape),
+  listNotifications: PropTypes.object,
   markNotificationAsRead: PropTypes.func,
   handleDisplayDrawer: PropTypes.func,
   handleHideDrawer: PropTypes.func,
@@ -134,8 +147,19 @@ Notifications.propTypes = {
 
 Notifications.defaultProps = {
   displayDrawer: false,
-  listNotifications: [],
+  listNotifications: null,
   handleDisplayDrawer: () => {},
   handleHideDrawer: () => {},
+  fetchNotifications: () => {},
 };
-export default Notifications;
+const mapStateToProps = (state) => {
+  return {
+    listNotifications: state.notifications.get('messages'),
+  };
+};
+
+const mapDispatchToProps = {
+  fetchNotifications,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Notifications);
