@@ -26,28 +26,28 @@ export const setNotifications = (notifications) => ({
   notifications,
 });
 
-// export const fetchNotifications = () => {
-//   return (dispatch) => {
-//     dispatch(setLoadingState(true));
-//     return fetch('./notifications.json')
-//       .then((res) => res.json())
-//       .then((data) => dispatch(setNotifications(data)))
-//       .catch((error) => {})
-//       .finally(() => dispatch(setLoadingState(false)));
-//   };
-// };
-
 export const fetchNotifications = () => {
-  return async (dispatch) => {
+  return (dispatch) => {
     dispatch(setLoadingState(true));
-    try {
-      try {
-        const res = await fetch('./notifications.json');
-        const data = await res.json();
-        return await dispatch(setNotifications(data));
-      } catch (error) {}
-    } finally {
-      return dispatch(setLoadingState(false));
-    }
+    return fetch('./notifications.json')
+      .then((res) => res.json())
+      .then((data) => dispatch(setNotifications(data)))
+      .catch((error) => {})
+      .finally(() => dispatch(setLoadingState(false)));
   };
 };
+
+// export const fetchNotifications = () => {
+//   return async (dispatch) => {
+//     dispatch(setLoadingState(true));
+//     try {
+//       try {
+//         const res = await fetch('./notifications.json');
+//         const data = await res.json();
+//         return dispatch(setNotifications(data));
+//       } catch (error) {}
+//     } finally {
+//       return dispatch(setLoadingState(false));
+//     }
+//   };
+// };

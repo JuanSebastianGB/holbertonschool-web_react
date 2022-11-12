@@ -42,6 +42,7 @@ export class Notifications extends Component {
 
     return (
       <section className={containerStyles}>
+        {listNotifications ? <div>Exists</div> : <div>doesnt exists</div>}
         {!displayDrawer && (
           <div
             onClick={() => handleDisplayDrawer()}
@@ -53,8 +54,7 @@ export class Notifications extends Component {
 
         {displayDrawer && (
           <div className={css(styles.notifications)}>
-            {listNotifications &&
-            Object.values(listNotifications).length === 0 ? (
+            {!listNotifications ? (
               <p>No new notification for now</p>
             ) : (
               <Fragment>
@@ -154,7 +154,7 @@ Notifications.defaultProps = {
 };
 const mapStateToProps = (state) => {
   return {
-    listNotifications: state.notifications.get('messages'),
+    listNotifications: state.notifications.get('notifications').toJS(),
   };
 };
 

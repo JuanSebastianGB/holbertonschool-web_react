@@ -1,8 +1,9 @@
 import { fromJS, Map } from 'immutable';
+import { setLoadingState } from '../actions/notificationActionCreators';
 import {
   FETCH_NOTIFICATIONS_SUCCESS,
   MARK_AS_READ,
-  SET_TYPE_FILTER
+  SET_TYPE_FILTER,
 } from '../actions/notificationActionTypes';
 import { notificationsNormalizer } from '../schema/notifications';
 import { notificationReducer } from './notificationReducer';
@@ -33,7 +34,7 @@ describe('notifications reducer', () => {
   const initialState = {
     notifications: Map([]),
     filter: 'DEFAULT',
-    loading: false
+    loading: false,
   };
   it('default state returns the initial data', () => {
     const result = notificationReducer(undefined, { type: 'ANY_TYPE' });
@@ -83,5 +84,43 @@ describe('notifications reducer', () => {
       filter: 'URGENT',
     });
     expect(result.get('filter')).toBe('URGENT');
+  });
+  // it('should return correct messages attribute in new state from setNotifications action', () => {
+  //   const initialState = Map({
+  //     loading: false,
+  //     filter: 'DEFAULT',
+  //     notifications: {
+  //       entities: {
+  //         notifications: {},
+  //         messages: {},
+  //         users: {},
+  //       },
+  //     },
+  //   });
+  //   const normalizedNotifications = notificationsNormalizer(notifications);
+  //   const newState = notificationReducer(
+  //     initialState,
+  //     setNotifications(notifications)
+  //   );
+  //   console.log({ newState });
+  //   expect(newState.toJS().notifications.entities.messages).toEqual(
+  //     normalizedNotifications.entities.messages
+  //   );
+  // });
+
+  it('should return new state with loading === true from setLoadingState action', () => {
+    const initialState = Map({
+      loading: false,
+      filter: 'DEFAULT',
+      notifications: {
+        entities: {
+          notifications: {},
+          messages: {},
+          users: {},
+        },
+      },
+    });
+    const newState = notificationReducer(initialState, setLoadingState(true));
+    expect(newState.toJS().loading).toEqual(true);
   });
 });
