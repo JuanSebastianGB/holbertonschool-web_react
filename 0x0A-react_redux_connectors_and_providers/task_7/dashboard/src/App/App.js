@@ -60,7 +60,6 @@ export class App extends React.Component {
   }
 
   render() {
-    const { isLoggedIn } = this.state.user;
     return (
       <AppContext.Provider
         value={{ user: this.state.user, logOut: this.state.logOut }}
@@ -76,7 +75,7 @@ export class App extends React.Component {
             <Header />
           </div>
           <div className={css(styles.body)}>
-            {isLoggedIn ? (
+            {this.props.isUserLoggedIn ? (
               <BodySectionWithMarginBottom title="BodySectionWithMarginBottom">
                 <CourseList listCourses={listCourses} />
               </BodySectionWithMarginBottom>
@@ -143,11 +142,12 @@ export const mapStateToProps = (state) => ({
   isUserLoggedIn: state.ui.get('isUserLoggedIn'),
   displayDrawer: state.ui.get('isNotificationDrawerVisible'),
 });
-export const mapDispatchToProps = {
+export const mapDispatchToProps = (dispatch) => ({
   displayNotificationDrawer,
   hideNotificationDrawer,
-  login: loginRequest,
+  // login: loginRequest,
+  login: (email, password) => dispatch(loginRequest(email, password)),
   logout,
-};
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

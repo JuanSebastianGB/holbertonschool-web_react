@@ -1,4 +1,4 @@
-export const courseSelector = (state) => {
-  const courses = state.get('courses');
+export const getListCourses = (state) => {
+  const courses = state.courses;
   return courses;
 };

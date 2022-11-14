@@ -1,11 +1,30 @@
-import React from 'react';
-import CourseListRow from './CourseListRow';
-import { CourseShape } from './CourseShape';
+import { css, StyleSheet } from 'aphrodite';
 import PropTypes from 'prop-types';
-import { StyleSheet, css } from 'aphrodite';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import {
+  fetchCourses,
+  selectCourse,
+  unSelectCourse,
+} from '../actions/courseActionCreators';
+import { getListCourses } from '../selectors/courseSelector';
 import vars from '../utils/styleVars';
+import CourseListRow from './CourseListRow';
 
-const CourseList = ({ listCourses }) => {
+export const CourseList = ({
+  listCourses,
+  fetchCourses,
+  selectCourse,
+  unSelectCourse,
+}) => {
+  const onChangeRow = (id, checked) => {
+    checked ? selectCourse(id) : unSelectCourse(id);
+  };
+  useEffect(() => {
+    (async () => {
+      await fetchCourses();
+    })();
+  }, []);
   return (
     <div className="courseListContainer">
       <table id="CourseList" className={css(styles.table)}>
@@ -18,19 +37,23 @@ const CourseList = ({ listCourses }) => {
           />
         </thead>
         <tbody>
-          {listCourses.length === 0 ? (
-            <tr>
-              <td>No course available yet</td>
-            </tr>
-          ) : (
-            listCourses.map((course) => (
-              <CourseListRow
-                key={course.id}
-                textFirstCell={course.name}
-                textSecondCell={course.credit}
-              />
-            ))
-          )}
+          {
+            listCourses.length === 0 ? (
+              <tr>
+                <td>No course available yet</td>
+              </tr>
+            ) : null
+            // (
+            //   listCourses.map((course) => (
+            //     <CourseListRow
+            //       key={course.id}
+            //       textFirstCell={course.name}
+            //       textSecondCell={course.credit}
+            //       onChangeRow={onChangeRow}
+            //     />
+            //   ))
+            // )
+          }
         </tbody>
       </table>
     </div>
@@ -38,7 +61,8 @@ const CourseList = ({ listCourses }) => {
 };
 
 CourseList.propTypes = {
-  listCourses: PropTypes.arrayOf(CourseShape),
+  // listCourses: PropTypes.arrayOf(CourseShape),
+  listCourses: PropTypes.object,
 };
 
 CourseList.defaultProps = {
@@ -62,4 +86,17 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CourseList;
+const mapStateToProps = (state) => {
+  const coursesList = getListCourses(state);
+  return {
+    listCourses: coursesList,
+  };
+};
+
+const mapDispatchToProps = {
+  fetchCourses,
+  selectCourse,
+  unSelectCourse,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CourseList);

@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { css, StyleSheet } from 'aphrodite';
 import PropTypes from 'prop-types';
-import { StyleSheet, css } from 'aphrodite';
+import { useState } from 'react';
 
 const CourseListRow = ({ isHeader, textFirstCell, textSecondCell }) => {
   const [checkRow, setCheckRow] = useState(false);

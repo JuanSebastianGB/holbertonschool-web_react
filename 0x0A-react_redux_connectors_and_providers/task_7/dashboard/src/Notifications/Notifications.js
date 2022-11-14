@@ -46,7 +46,6 @@ export class Notifications extends Component {
 
     return (
       <section className={containerStyles}>
-        {listNotifications ? <div>Exists</div> : <div>doesnt exists</div>}
         {!displayDrawer && (
           <div
             onClick={() => handleDisplayDrawer()}
